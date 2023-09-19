@@ -12,5 +12,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 12,
+    backgroundColor: "#333333",
+    fontFamily: "Inter_900Black",
   },
 });

@@ -92,7 +92,7 @@ export function App() {
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TouchableWithoutFeedback>
                             <TextInput
-                              style={styles.amountInput}
+                              style={styles.amountBox}
                               keyboardType="numeric"
                               placeholder="Enter amount"
                             />
@@ -100,7 +100,9 @@ export function App() {
                         </View>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Receive</Text>
-                          <Text style={styles.amountValue}>10 Tokens</Text>
+                          <View style={styles.amountBox}>
+                            <Text style={styles.amountValue}>10 USDC</Text>
+                          </View>
                         </View>
                       </View>
                     )}
@@ -117,7 +119,7 @@ export function App() {
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TouchableWithoutFeedback>
                             <TextInput
-                              style={styles.amountInput}
+                              style={styles.amountBox}
                               keyboardType="numeric"
                               placeholder="Enter amount"
                             />
@@ -125,7 +127,9 @@ export function App() {
                         </View>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Receive</Text>
-                          <Text style={styles.amountValue}>5 Tokens</Text>
+                          <View style={styles.amountBox}>
+                            <Text style={styles.amountValue}>5 Tokens</Text>
+                          </View>
                         </View>
                       </View>
                     )}
@@ -200,16 +204,18 @@ const styles = StyleSheet.create({
   marketDetails: {
     marginTop: 10,
   },
-  amountInput: {
+  amountBox: {
+    backgroundColor: "#fff",
+    padding: 8,
+    borderRadius: 8,
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingLeft: 5,
-    marginBottom: 5,
-    color: '#fff',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
+amountValue: {
+  color: '#fff',
+},
   marketText: {
     color: "#fff",
     fontWeight: "bold",
@@ -222,10 +228,6 @@ const styles = StyleSheet.create({
     marginBottom: 10, // Adjust as needed for spacing
   },
 
-  amountBox: {
-    marginTop: 10, // Add space between market text and "You Pay" element
-  },
-
   amountItem: {
     marginBottom: 10, // Add space between items
   },
@@ -236,9 +238,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 
-  amountValue: {
-    color: "#fff",
-  },
   marketInfo: {
     backgroundColor: "#555", // Lighter shade for the market info box
     padding: 10,

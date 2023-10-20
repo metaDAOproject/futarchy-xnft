@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView } from "react-native";
 import { registerRootComponent } from "expo";
+import * as anchor from "@coral-xyz/anchor";
+import { Program } from "@coral-xyz/anchor";
 
+import { Buffer } from "buffer";
+window.Buffer = Buffer;
 
-const proposals = [
+import { useSolanaProvider } from "./hooks/xnft-hooks";
+
+import { AutocratV0 } from "./idl/autocrat_v0";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+const AutocratIDL: AutocratV0 = require("./idl/autocrat_v0.json");
+
+let static_proposals = [
   {
     title: "Proposal 0 - Put upgrades behind a timelock",
     program_id: "ATn9hbwGBFjcihRJ2a5BMJ9T8a9nyeXH54A3JWouAu6h",
@@ -24,24 +34,36 @@ const proposals = [
       { pubkey: "P5KJ3JNK9rXbRHVb3eg9Q2Q8brZqGJDtZgrMzrWcmuA", is_writable: true, is_signer: true },
     ],
   },
-  {
-    title: "Proposal 2 - Profit",
-    program_id: "9cYhbwGBFjcihRJ2a5BMJ9T8a9nyeXH54A3JWouAu6h",
-    calldata: "0xabcdef1234567890",
-    accounts: [
-      { pubkey: "1gXPRcvUJ12kR32KGB43yvM4RDvR53gM2JStZGUnftfa", is_writable: true, is_signer: false },
-      { pubkey: "6VtKJ3JNK9rXbRHVb3eg9Q2Q8brZqGJDtZgrMzrWcmuC", is_writable: false, is_signer: true },
-      { pubkey: "C5KJ3JNK9rXbRHVb3eg9Q2Q8brZqGJDtZgrMzrWcmuA", is_writable: true, is_signer: true },
-    ],
-  },
 ];
 
+const AUTOCRAT_PROGRAM_ID = new anchor.web3.PublicKey(
+  "Ctt7cFZM6K7phtRo5NvjycpQju7X6QTSuqNen2ebXiuc"
+); 
+
+
 export function App() {
+  let provider = useSolanaProvider();
   const [selectedProposal, setSelectedProposal] = useState(null);
+  const [proposals, setProposals] = useState([]);
 
   const handleProposalClick = (item) => {
     setSelectedProposal(selectedProposal === item ? null : item);
   };
+
+  async function getProposals(): Promise<any> {
+    console.log(provider);
+    console.log(window.xnft.solana);
+    const autocratProgram = new Program(AutocratIDL, AUTOCRAT_PROGRAM_ID, provider);
+    const proposals = await autocratProgram.account.proposal.all();
+    console.log(proposals[0]);
+    return proposals;
+  }
+
+  useEffect(() => {
+    getProposals().then((proposals) => {
+      setProposals(proposals);
+    });
+  }, [provider]); // provider gets asynchronously set, so we need to wait for it to be set before we can use it
 
   return (
     <View style={{ flex: 1, backgroundColor: "#222", padding: 10 }}>
@@ -58,20 +80,20 @@ export function App() {
             ]}
             onPress={() => handleProposalClick(item)}
           >
-            <Text style={styles.proposalText}>{item.title}</Text>
+            <Text style={styles.proposalText}>Proposal {item.account.number}</Text>
             {selectedProposal === item && (
               <View style={styles.proposalDescription}>
                 <Text style={styles.jsonLabel}>Program ID</Text>
                 <Text style={styles.jsonText}>
-                  {item.program_id}
+                  {item.account.instruction.programId.toString()}
                 </Text>
                 <Text style={styles.jsonLabel}>Calldata</Text>
                 <Text style={styles.jsonText}>
-                  {item.calldata}
+                  {'0x' + Buffer.from(item.account.instruction.data).toString('hex')}
                 </Text>
                 <Text style={styles.jsonLabel}>Accounts</Text>
                 <Text style={styles.jsonText}>
-                  {JSON.stringify(item.accounts, null, 2)}
+                  {JSON.stringify(item.account.instruction.accounts, null, 2)}
                 </Text>
               </View>
             )}

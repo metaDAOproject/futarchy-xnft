@@ -89,23 +89,23 @@ export function App() {
                     {expandedMarket === 'pass' && (
                       <View style={styles.marketDetails}>
                         <View style={styles.amountItem}>
-  <Text style={styles.amountLabel}>You Pay</Text>
-  <TouchableWithoutFeedback>
-    <View style={styles.amountBox}>
-      <TextInput
-        style={styles.amountTextInput}
-        keyboardType="numeric"
-        placeholder="Enter amount"
-      />
-      <Image source={require('../assets/USDC.png')} style={styles.currencyIcon} />
-    </View>
-  </TouchableWithoutFeedback>
-</View>
-                    
+                          <Text style={styles.amountLabel}>You Pay</Text>
+                          <TouchableWithoutFeedback>
+                            <View style={styles.amountBox}>
+                              <TextInput
+                                style={styles.amountValue}
+                                keyboardType="numeric"
+                                placeholder="Enter amount"
+                              />
+                              <Image source={require('../assets/USDC.png')} style={styles.currencyIcon} />
+                            </View>
+                          </TouchableWithoutFeedback>
+                        </View>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Receive</Text>
                           <View style={styles.amountBox}>
-                            <Text style={styles.amountValue}>10 USDC</Text>
+                            <Text style={[styles.amountValue, { textAlignVertical: 'center'}]}>132.3910</Text>
+                            <Image source={require('../assets/META2.png')} style={styles.currencyIcon} />
                           </View>
                         </View>
                       </View>
@@ -123,19 +123,20 @@ export function App() {
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TouchableWithoutFeedback>
                             <View style={styles.amountBox}>
-      <TextInput
-        style={styles.amountTextInput}
-        keyboardType="numeric"
-        placeholder="Enter amount"
-      />
-      <Image source={require('../assets/USDC.png')} style={styles.currencyIcon} />
-    </View>
+                              <TextInput
+                                style={styles.amountValue}
+                                keyboardType="numeric"
+                                placeholder="Enter amount"
+                              />
+                              <Image source={require('../assets/USDC.png')} style={styles.currencyIcon} />
+                            </View>
                           </TouchableWithoutFeedback>
                         </View>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Receive</Text>
                           <View style={styles.amountBox}>
-                            <Text style={styles.amountValue}>5 Tokens</Text>
+                            <Text style={styles.amountValue}>50.3223</Text>
+                            <Image source={require('../assets/META2.png')} style={styles.currencyIcon} />
                           </View>
                         </View>
                       </View>
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
   alignItems: 'center',
   backgroundColor: '#fff',
   borderRadius: 8,
-  height: 40,
+  height: 40, // Adjust the height as needed
   marginBottom: 5,
   paddingLeft: 5,
   position: 'relative',
@@ -230,18 +231,14 @@ currencyIcon: {
   width: 24,
   height: 24,
 },
-amountTextInput: {
-  flex: 1,
-  height: '100%',
+amountValue: {
   borderColor: 'gray',
   borderWidth: 0,
   borderRadius: 5,
   paddingLeft: 5,
   color: '#000',
-},
-
-amountValue: {
-  color: '#fff',
+  textAlignVertical: 'center', // Center the text vertically
+  justifyContent: 'center', // Center the content vertically
 },
   marketText: {
     color: "#fff",

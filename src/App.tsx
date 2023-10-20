@@ -85,8 +85,7 @@ export function App() {
                 {/* Pass Market */}
                 <TouchableOpacity onPress={() => handleMarketClick('pass')}>
                   <View style={styles.marketBox}>
-                    <Text style={styles.marketTitle}>Pass Market</Text>
-                    <Text style={styles.priceText}>Pass Price: $10</Text>
+                    <Text style={styles.marketTitle}>Pass Market - 10.32 USDC</Text>
                     {expandedMarket === 'pass' && (
                       <View style={styles.marketDetails}>
                         <View style={styles.amountItem}>
@@ -111,8 +110,7 @@ export function App() {
                 {/* Fail Market */}
                 <TouchableOpacity onPress={() => handleMarketClick('fail')}>
                   <View style={styles.marketBox}>
-                    <Text style={styles.marketTitle}>Fail Market</Text>
-                    <Text style={styles.priceText}>Fail Price: $8</Text>
+                    <Text style={styles.marketTitle}>Fail Market - 8.23 USDC</Text>
                     {expandedMarket === 'fail' && (
                       <View style={styles.marketDetails}>
                         <View style={styles.amountItem}>

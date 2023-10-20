@@ -49,6 +49,16 @@ export function App() {
     console.log("Opening proposal link:", url);
   };
 
+  const handleMarketClick = (market) => {
+    if (expandedMarket === market) {
+      // If the clicked market is already open, close it
+      setExpandedMarket(null);
+    } else {
+      // Otherwise, open the clicked market
+      setExpandedMarket(market);
+    }
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#222", padding: 10 }}>
       <Text style={{ fontSize: 20, color: "#fff", textAlign: "left", paddingTop: 8, paddingLeft: 15 }}>Proposals</Text>
@@ -71,14 +81,14 @@ export function App() {
                 <TouchableOpacity onPress={() => console.log("Link pressed", item.account.descriptionUrl)}>
                   <Text style={styles.proposalLink}>{item.account.descriptionUrl}</Text>
                 </TouchableOpacity>
-                <View>
-                  <TouchableOpacity onPress={() => setExpandedMarket(expandedMarket === 'pass' ? null : 'pass')}>
-                    <Text style={styles.marketText}>Pass Market</Text>
-                  </TouchableOpacity>
-                  {expandedMarket === 'pass' && (
-                    <View style={styles.marketDetails}>
-                      <Text style={styles.priceText}>Price: $10</Text>
-                      <View style={styles.amountBox}>
+
+                {/* Pass Market */}
+                <TouchableOpacity onPress={() => handleMarketClick('pass')}>
+                  <View style={styles.marketBox}>
+                    <Text style={styles.marketTitle}>Pass Market</Text>
+                    <Text style={styles.priceText}>Pass Price: $10</Text>
+                    {expandedMarket === 'pass' && (
+                      <View style={styles.marketDetails}>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TextInput
@@ -92,17 +102,17 @@ export function App() {
                           <Text style={styles.amountValue}>10 Tokens</Text>
                         </View>
                       </View>
-                    </View>
-                  )}
-                </View>
-                <View>
-                  <TouchableOpacity onPress={() => setExpandedMarket(expandedMarket === 'fail' ? null : 'fail')}>
-                    <Text style={styles.marketText}>Fail Market</Text>
-                  </TouchableOpacity>
-                  {expandedMarket === 'fail' && (
-                    <View style={styles.marketDetails}>
-                      <Text style={styles.priceText}>Price: $8</Text>
-                      <View style={styles.amountBox}>
+                    )}
+                  </View>
+                </TouchableOpacity>
+
+                {/* Fail Market */}
+                <TouchableOpacity onPress={() => handleMarketClick('fail')}>
+                  <View style={styles.marketBox}>
+                    <Text style={styles.marketTitle}>Fail Market</Text>
+                    <Text style={styles.priceText}>Fail Price: $8</Text>
+                    {expandedMarket === 'fail' && (
+                      <View style={styles.marketDetails}>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TextInput
@@ -116,9 +126,11 @@ export function App() {
                           <Text style={styles.amountValue}>5 Tokens</Text>
                         </View>
                       </View>
-                    </View>
-                  )}
-                </View>
+                    )}
+                  </View>
+                </TouchableOpacity>
+
+                {/* Remaining Proposal Details */}
                 <Text style={styles.jsonLabel}>Program ID</Text>
                 <Text style={styles.jsonText}>
                   {item.account.instruction.programId.toString()}
@@ -171,7 +183,20 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     marginBottom: 10,
-    flex: 1,
+  },
+
+  marketTitle: {
+    color: "#fff",
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+
+  priceText: {
+    color: "#fff",
+  },
+
+  marketDetails: {
+    marginTop: 10,
   },
   amountInput: {
     height: 40,
@@ -193,10 +218,6 @@ const styles = StyleSheet.create({
     color: "#007BFF", // Add your desired link color
     textDecorationLine: "underline",
     marginBottom: 10, // Adjust as needed for spacing
-  },
-
-  priceText: {
-    color: "#fff",
   },
 
   amountBox: {

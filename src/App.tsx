@@ -89,11 +89,30 @@ export function App() {
                     <Text style={styles.marketTitle}>Pass Market - 10.32 USDC</Text>
                     {expandedMarket === 'pass' && (
                       <View style={styles.marketDetails}>
-                        <TouchableOpacity onPress={() => setIsBuying(!isBuying)}>
-                          <Text style={{ fontSize: 16, color: "#fff", textAlign: "center", marginBottom: 10 }}>
-                            {isBuying ? "Buying" : "Selling"}
-                          </Text>
-                        </TouchableOpacity>
+                        {/* Toggle Button */}
+                        <View 
+                          style={{
+                            backgroundColor: "#ccc",
+                            borderRadius: 8,
+                            alignSelf: "center",
+                            marginBottom: 10,
+                          }}
+                        >
+                          <TouchableOpacity 
+                            onPress={() => setIsBuying(!isBuying)}
+                            style={{
+                              backgroundColor: "#fff",
+                              paddingVertical: 5,
+                              paddingHorizontal: 10,
+                              borderRadius: 8,
+                            }}
+                          >
+                            <Text style={{ fontSize: 14, color: "#000", textAlign: "center" }}>
+                              {isBuying ? "Buying" : "Selling"}
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TouchableWithoutFeedback>
@@ -131,11 +150,30 @@ export function App() {
                     <Text style={styles.marketTitle}>Fail Market - 8.23 USDC</Text>
                     {expandedMarket === 'fail' && (
                       <View style={styles.marketDetails}>
-                        <TouchableOpacity onPress={() => setIsBuying(!isBuying)}>
-                          <Text style={{ fontSize: 16, color: "#fff", textAlign: "center", marginBottom: 10 }}>
-                            {isBuying ? "Buying" : "Selling"}
-                          </Text>
-                        </TouchableOpacity>
+                        {/* Toggle Button */}
+                        <View 
+                          style={{
+                            backgroundColor: "#ccc",
+                            borderRadius: 8,
+                            alignSelf: "center",
+                            marginBottom: 10,
+                          }}
+                        >
+                          <TouchableOpacity 
+                            onPress={() => setIsBuying(!isBuying)}
+                            style={{
+                              backgroundColor: "#fff",
+                              paddingVertical: 5,
+                              paddingHorizontal: 10,
+                              borderRadius: 8,
+                            }}
+                          >
+                            <Text style={{ fontSize: 14, color: "#000", textAlign: "center" }}>
+                              {isBuying ? "Buying" : "Selling"}
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                  
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TouchableWithoutFeedback>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView, TouchableWithoutFeedback } from "react-native";
 import { registerRootComponent } from "expo";
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
@@ -91,11 +91,13 @@ export function App() {
                       <View style={styles.marketDetails}>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
-                          <TextInput
-                            style={styles.amountInput}
-                            keyboardType="numeric"
-                            placeholder="Enter amount"
-                          />
+                          <TouchableWithoutFeedback>
+                            <TextInput
+                              style={styles.amountInput}
+                              keyboardType="numeric"
+                              placeholder="Enter amount"
+                            />
+                          </TouchableWithoutFeedback>
                         </View>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Receive</Text>
@@ -115,11 +117,13 @@ export function App() {
                       <View style={styles.marketDetails}>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
-                          <TextInput
-                            style={styles.amountInput}
-                            keyboardType="numeric"
-                            placeholder="Enter amount"
-                          />
+                          <TouchableWithoutFeedback>
+                            <TextInput
+                              style={styles.amountInput}
+                              keyboardType="numeric"
+                              placeholder="Enter amount"
+                            />
+                          </TouchableWithoutFeedback>
                         </View>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Receive</Text>

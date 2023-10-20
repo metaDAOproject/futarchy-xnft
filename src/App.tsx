@@ -42,7 +42,11 @@ export function App() {
     });
   }, [provider]); // provider gets asynchronously set, so we need to wait for it to be set before we can use it
 
- 
+  const openProposalLink = (url) => {
+    // Implement logic to open the URL, e.g., using Linking.openURL
+    // For now, you can console.log the URL
+    console.log("Opening proposal link:", url);
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#222", padding: 10 }}>
@@ -63,6 +67,10 @@ export function App() {
             {selectedProposal === item && (
               <View style={{...styles.proposalDescription, flexDirection: 'column'}}>
                 <View style={{flex: 1}}>
+                  <Text style={styles.jsonLabel}>Description</Text>
+                  <TouchableOpacity onPress={() => console.log("Link pressed", item.account.descriptionUrl)}>
+                    <Text style={styles.proposalLink}>{item.account.descriptionUrl}</Text>
+                  </TouchableOpacity>
                   <View style={styles.marketBox}>
                     <Text style={styles.marketText}>Pass Market</Text>
                     <Text style={styles.priceText}>Price: $10</Text>
@@ -93,15 +101,7 @@ export function App() {
                     <View style={styles.amountBox}>
                       <View style={styles.amountItem}>
                         <Text style={styles.amountLabel}>You Pay</Text>
-                        <TouchableOpacity activeOpacity={1} onPress={() => {}}>
-                          <TextInput
-                            style={styles.amountInput}
-                            keyboardType="numeric"
-                            placeholder="Enter amount"
-                            // You can add state to manage the value entered by the user
-                            // For example: value={payValue} onChangeText={(text) => setPayValue(text)}
-                          />
-                        </TouchableOpacity>
+                        <Text style={styles.amountValue}>$3</Text>
                       </View>
                       <View style={styles.amountItem}>
                         <Text style={styles.amountLabel}>You Receive</Text>
@@ -178,6 +178,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     marginBottom: 5,
+  },
+
+  proposalLink: {
+    color: "#007BFF", // Add your desired link color
+    textDecorationLine: "underline",
+    marginBottom: 10, // Adjust as needed for spacing
   },
 
   priceText: {

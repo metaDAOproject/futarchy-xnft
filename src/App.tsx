@@ -23,6 +23,7 @@ export function App() {
   const [selectedProposal, setSelectedProposal] = useState(null);
   const [proposals, setProposals] = useState([]);
   const [expandedMarket, setExpandedMarket] = useState(null);
+  const [isBuying, setIsBuying] = useState(true);
 
   const handleProposalClick = (item) => {
     setSelectedProposal(selectedProposal === item ? null : item);
@@ -88,6 +89,11 @@ export function App() {
                     <Text style={styles.marketTitle}>Pass Market - 10.32 USDC</Text>
                     {expandedMarket === 'pass' && (
                       <View style={styles.marketDetails}>
+                        <TouchableOpacity onPress={() => setIsBuying(!isBuying)}>
+                          <Text style={{ fontSize: 16, color: "#fff", textAlign: "center", marginBottom: 10 }}>
+                            {isBuying ? "Buying" : "Selling"}
+                          </Text>
+                        </TouchableOpacity>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TouchableWithoutFeedback>
@@ -97,7 +103,10 @@ export function App() {
                                 keyboardType="numeric"
                                 placeholder="Enter amount"
                               />
-                              <Image source={require('../assets/USDC.png')} style={styles.currencyIcon} />
+                              <Image 
+                                source={isBuying ? require('../assets/USDC.png') : require('../assets/META2.png')} 
+                                style={styles.currencyIcon} 
+                              />
                             </View>
                           </TouchableWithoutFeedback>
                         </View>
@@ -105,7 +114,10 @@ export function App() {
                           <Text style={styles.amountLabel}>You Receive</Text>
                           <View style={styles.amountBox}>
                             <Text style={[styles.amountValue, { textAlignVertical: 'center'}]}>132.3910</Text>
-                            <Image source={require('../assets/META2.png')} style={styles.currencyIcon} />
+                            <Image 
+                              source={isBuying ? require('../assets/META2.png') : require('../assets/USDC.png')} 
+                              style={styles.currencyIcon} 
+                            />
                           </View>
                         </View>
                       </View>
@@ -119,6 +131,11 @@ export function App() {
                     <Text style={styles.marketTitle}>Fail Market - 8.23 USDC</Text>
                     {expandedMarket === 'fail' && (
                       <View style={styles.marketDetails}>
+                        <TouchableOpacity onPress={() => setIsBuying(!isBuying)}>
+                          <Text style={{ fontSize: 16, color: "#fff", textAlign: "center", marginBottom: 10 }}>
+                            {isBuying ? "Buying" : "Selling"}
+                          </Text>
+                        </TouchableOpacity>
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TouchableWithoutFeedback>
@@ -128,7 +145,10 @@ export function App() {
                                 keyboardType="numeric"
                                 placeholder="Enter amount"
                               />
-                              <Image source={require('../assets/USDC.png')} style={styles.currencyIcon} />
+                              <Image 
+                                source={isBuying ? require('../assets/USDC.png') : require('../assets/META2.png')} 
+                                style={styles.currencyIcon} 
+                              />
                             </View>
                           </TouchableWithoutFeedback>
                         </View>
@@ -136,7 +156,10 @@ export function App() {
                           <Text style={styles.amountLabel}>You Receive</Text>
                           <View style={styles.amountBox}>
                             <Text style={styles.amountValue}>50.3223</Text>
-                            <Image source={require('../assets/META2.png')} style={styles.currencyIcon} />
+                            <Image 
+                              source={isBuying ? require('../assets/META2.png') : require('../assets/USDC.png')} 
+                              style={styles.currencyIcon} 
+                            />
                           </View>
                         </View>
                       </View>

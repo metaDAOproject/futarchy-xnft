@@ -22,6 +22,7 @@ export function App() {
   let provider = useSolanaProvider();
   const [selectedProposal, setSelectedProposal] = useState(null);
   const [proposals, setProposals] = useState([]);
+  const [expandedMarket, setExpandedMarket] = useState(null);
 
   const handleProposalClick = (item) => {
     setSelectedProposal(selectedProposal === item ? null : item);
@@ -65,59 +66,59 @@ export function App() {
           >
             <Text style={styles.proposalText}>Proposal {item.account.number}</Text>
             {selectedProposal === item && (
-              <View style={{...styles.proposalDescription, flexDirection: 'column'}}>
-                  <Text style={styles.jsonLabel}>Description</Text>
-                  <TouchableOpacity onPress={() => console.log("Link pressed", item.account.descriptionUrl)}>
-                    <Text style={styles.proposalLink}>{item.account.descriptionUrl}</Text>
+              <View style={{ ...styles.proposalDescription, flexDirection: 'column' }}>
+                <Text style={styles.jsonLabel}>Description</Text>
+                <TouchableOpacity onPress={() => console.log("Link pressed", item.account.descriptionUrl)}>
+                  <Text style={styles.proposalLink}>{item.account.descriptionUrl}</Text>
+                </TouchableOpacity>
+                <View>
+                  <TouchableOpacity onPress={() => setExpandedMarket(expandedMarket === 'pass' ? null : 'pass')}>
+                    <Text style={styles.marketText}>Pass Market</Text>
                   </TouchableOpacity>
-                  <View style={{ flex: 1 }}>
-      <View style={styles.marketBox}>
-        <Text style={styles.marketText}>Pass Market</Text>
-        <Text style={styles.priceText}>Price: $10</Text>
-        <View style={styles.amountBox}>
-          <View style={styles.amountItem}>
-            <Text style={styles.amountLabel}>You Pay</Text>
-            <TouchableOpacity activeOpacity={1} onPress={() => {}}>
-              <TextInput
-                style={styles.amountInput}
-                keyboardType="numeric"
-                placeholder="Enter amount"
-                // You can add state to manage the value entered by the user
-                // For example: value={payValue} onChangeText={(text) => setPayValue(text)}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.amountItem}>
-            <Text style={styles.amountLabel}>You Receive</Text>
-            <Text style={styles.amountValue}>10 Tokens</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-    <View style={{ flex: 1 }}>
-      <View style={styles.marketBox}>
-        <Text style={styles.marketText}>Fail Market</Text>
-        <Text style={styles.priceText}>Price: $8</Text>
-        <View style={styles.amountBox}>
-          <View style={styles.amountItem}>
-            <Text style={styles.amountLabel}>You Pay</Text>
-            <TouchableOpacity activeOpacity={1} onPress={() => {}}>
-              <TextInput
-                style={styles.amountInput}
-                keyboardType="numeric"
-                placeholder="Enter amount"
-                // You can add state to manage the value entered by the user
-                // For example: value={payValue} onChangeText={(text) => setPayValue(text)}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.amountItem}>
-            <Text style={styles.amountLabel}>You Receive</Text>
-            <Text style={styles.amountValue}>5 Tokens</Text>
-          </View>
-        </View>
-      </View>
-      </View>
+                  {expandedMarket === 'pass' && (
+                    <View style={styles.marketDetails}>
+                      <Text style={styles.priceText}>Price: $10</Text>
+                      <View style={styles.amountBox}>
+                        <View style={styles.amountItem}>
+                          <Text style={styles.amountLabel}>You Pay</Text>
+                          <TextInput
+                            style={styles.amountInput}
+                            keyboardType="numeric"
+                            placeholder="Enter amount"
+                          />
+                        </View>
+                        <View style={styles.amountItem}>
+                          <Text style={styles.amountLabel}>You Receive</Text>
+                          <Text style={styles.amountValue}>10 Tokens</Text>
+                        </View>
+                      </View>
+                    </View>
+                  )}
+                </View>
+                <View>
+                  <TouchableOpacity onPress={() => setExpandedMarket(expandedMarket === 'fail' ? null : 'fail')}>
+                    <Text style={styles.marketText}>Fail Market</Text>
+                  </TouchableOpacity>
+                  {expandedMarket === 'fail' && (
+                    <View style={styles.marketDetails}>
+                      <Text style={styles.priceText}>Price: $8</Text>
+                      <View style={styles.amountBox}>
+                        <View style={styles.amountItem}>
+                          <Text style={styles.amountLabel}>You Pay</Text>
+                          <TextInput
+                            style={styles.amountInput}
+                            keyboardType="numeric"
+                            placeholder="Enter amount"
+                          />
+                        </View>
+                        <View style={styles.amountItem}>
+                          <Text style={styles.amountLabel}>You Receive</Text>
+                          <Text style={styles.amountValue}>5 Tokens</Text>
+                        </View>
+                      </View>
+                    </View>
+                  )}
+                </View>
                 <Text style={styles.jsonLabel}>Program ID</Text>
                 <Text style={styles.jsonText}>
                   {item.account.instruction.programId.toString()}
@@ -129,8 +130,8 @@ export function App() {
                 <Text style={styles.jsonLabel}>Accounts</Text>
                 <Text style={styles.jsonText}>
                   {JSON.stringify(item.account.instruction.accounts, null, 2)}
-                </Text> 
-              </View>                
+                </Text>
+              </View>
             )}
           </TouchableOpacity>
         )}

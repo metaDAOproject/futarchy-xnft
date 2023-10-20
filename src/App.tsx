@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView, TouchableWithoutFeedback } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, FlatList, ActivityIndicator, ScrollView, TouchableWithoutFeedback } from "react-native";
 import { registerRootComponent } from "expo";
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
@@ -89,15 +89,19 @@ export function App() {
                     {expandedMarket === 'pass' && (
                       <View style={styles.marketDetails}>
                         <View style={styles.amountItem}>
-                          <Text style={styles.amountLabel}>You Pay</Text>
-                          <TouchableWithoutFeedback>
-                            <TextInput
-                              style={styles.amountBox}
-                              keyboardType="numeric"
-                              placeholder="Enter amount"
-                            />
-                          </TouchableWithoutFeedback>
-                        </View>
+  <Text style={styles.amountLabel}>You Pay</Text>
+  <TouchableWithoutFeedback>
+    <View style={styles.amountBox}>
+      <TextInput
+        style={styles.amountTextInput}
+        keyboardType="numeric"
+        placeholder="Enter amount"
+      />
+      <Image source={require('../assets/USDC.png')} style={styles.currencyIcon} />
+    </View>
+  </TouchableWithoutFeedback>
+</View>
+                    
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Receive</Text>
                           <View style={styles.amountBox}>
@@ -118,11 +122,14 @@ export function App() {
                         <View style={styles.amountItem}>
                           <Text style={styles.amountLabel}>You Pay</Text>
                           <TouchableWithoutFeedback>
-                            <TextInput
-                              style={styles.amountBox}
-                              keyboardType="numeric"
-                              placeholder="Enter amount"
-                            />
+                            <View style={styles.amountBox}>
+      <TextInput
+        style={styles.amountTextInput}
+        keyboardType="numeric"
+        placeholder="Enter amount"
+      />
+      <Image source={require('../assets/USDC.png')} style={styles.currencyIcon} />
+    </View>
                           </TouchableWithoutFeedback>
                         </View>
                         <View style={styles.amountItem}>
@@ -205,13 +212,33 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   amountBox: {
-    backgroundColor: "#fff",
-    padding: 8,
-    borderRadius: 8,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  flexDirection: 'row',
+  alignItems: 'center',
+  backgroundColor: '#fff',
+  borderRadius: 8,
+  height: 40,
+  marginBottom: 5,
+  paddingLeft: 5,
+  position: 'relative',
+},
+
+currencyIcon: {
+  position: 'absolute',
+  right: 5, // Adjust as needed
+  top: '50%',
+  transform: [{ translateY: -12 }], // Center the icon vertically
+  width: 24,
+  height: 24,
+},
+amountTextInput: {
+  flex: 1,
+  height: '100%',
+  borderColor: 'gray',
+  borderWidth: 0,
+  borderRadius: 5,
+  paddingLeft: 5,
+  color: '#000',
+},
 
 amountValue: {
   color: '#fff',

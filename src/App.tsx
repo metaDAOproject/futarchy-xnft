@@ -9,12 +9,22 @@ window.Buffer = Buffer;
 
 import { useSolanaProvider } from "./hooks/xnft-hooks";
 
+import {
+  OpenBookV2Client,
+  PlaceOrderArgs,
+  Side,
+  OrderType,
+  SelfTradeBehavior
+} from "@openbook-dex/openbook-v2";
+
+import { OpenbookTwap } from "./idl/openbook_twap";
+const OpenbookTwapIDL: OpenbookTwap = require("./idl/openbook_twap.json");
+
 import { AutocratV0 } from "./idl/autocrat_v0";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 const AutocratIDL: AutocratV0 = require("./idl/autocrat_v0.json");
 
 const AUTOCRAT_PROGRAM_ID = new anchor.web3.PublicKey(
-  "Ctt7cFZM6K7phtRo5NvjycpQju7X6QTSuqNen2ebXiuc"
+  "Euvur4akYaqT5djixEkf8J9Jb8SUrKZt8BZeSNnB5jYU"
 ); 
 
 
@@ -86,7 +96,7 @@ export function App() {
                 {/* Pass Market */}
                 <TouchableOpacity onPress={() => handleMarketClick('pass')}>
                   <View style={styles.marketBox}>
-                    <Text style={styles.marketTitle}>Pass Market - 10.32 USDC</Text>
+                    <Text style={styles.marketTitle}>Pass Market       10.32 USDC</Text>
                     {expandedMarket === 'pass' && (
                       <View style={styles.marketDetails}>
                         {/* Toggle Button */}

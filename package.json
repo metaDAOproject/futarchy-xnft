@@ -12,6 +12,7 @@
     "@coral-xyz/common-public": "^0.2.0-latest.3375",
     "@expo-google-fonts/dev": "*",
     "@expo/vector-icons": "^13.0.0",
+    "@openbook-dex/openbook-v2": "^0.0.10",
     "@react-navigation/bottom-tabs": "6.3.1",
     "@react-navigation/native": "6.0.10",
     "@react-navigation/native-stack": "6.6.1",
